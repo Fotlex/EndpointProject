@@ -1,0 +1,55 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.default
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context: { }
+
+        transports:
+            import_incoming:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: import_incoming
+                        type: direct
+                    queues:
+                        import_incoming: ~
+
+            queue_vessels:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: queue_vessels
+                        type: direct
+                    queues:
+                        queue_vessels: ~
+
+            queue_ports:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: queue_ports
+                        type: direct
+                    queues:
+                        queue_ports: ~
+
+            queue_companies:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: queue_companies
+                        type: direct
+                    queues:
+                        queue_companies: ~
+
+            failed: 'doctrine://default?queue_name=failed'
+
+        failure_transport: failed
+
+        routing:
+            'App\Message\IncomingImportMessage': import_incoming
+            'App\Message\ImportVesselMessage': queue_vessels
+            'App\Message\ImportPortMessage': queue_ports
+            'App\Message\ImportCompanyMessage': queue_companies
