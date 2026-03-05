@@ -1,3 +1,6 @@
+markdown
+# Команды для развертывания и проверки импорта
+
 **Поднять контейнеры:**
 ```bash
 docker compose -f docker/docker-compose.yml up -d --build
