@@ -1,33 +1,39 @@
-text
 # Команды для развертывания и проверки импорта
 
-**Поднять контейнеры:**
+## Поднять контейнеры
+
 ```bash
 docker compose -f docker/docker-compose.yml up -d --build
-Применить миграции:
+```
 
-bash
+## Применить миграции
+
+```bash
 docker compose -f docker/docker-compose.yml exec php php bin/console doctrine:migrations:migrate -n
-Запустить воркер:
+```
 
-bash
+## Запустить воркер
+
+```bash
 docker compose -f docker/docker-compose.yml exec php php bin/console messenger:consume import_incoming queue_vessels queue_ports queue_companies -vv
-Тест curl:
+```
 
-bash
+## Тест запроса через curl
+
+```bash
 curl -v -X POST http://localhost:8080/api/import \
   -H "Content-Type: application/json" \
   -d '{
     "data": {
-        "vessels": [
-            {"imo": "9166778", "name": "Vessel One", "flag": "Panama"}
-        ],
-        "ports": [
-            {"code": "NLRTM", "name": "Rotterdam", "country": "Netherlands"}
-        ],
-        "companies": [
-            {"tax_id": "DE123456789", "name": "Shipping Co"}
-        ]
+      "vessels": [
+        {"imo": "9166778", "name": "Vessel One", "flag": "Panama"}
+      ],
+      "ports": [
+        {"code": "NLRTM", "name": "Rotterdam", "country": "Netherlands"}
+      ],
+      "companies": [
+        {"tax_id": "DE123456789", "name": "Shipping Co"}
+      ]
     }
-}'
-text
+  }'
+```
