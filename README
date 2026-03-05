@@ -1,0 +1,36 @@
+Поднять контейнеры:
+code Bash
+
+docker compose -f docker/docker-compose.yml up -d --build
+
+Применить миграции:
+code Bash
+
+docker compose -f docker/docker-compose.yml exec php php bin/console doctrine:migrations:migrate -n
+
+Запустить воркер:
+code Bash
+
+docker compose -f docker/docker-compose.yml exec php php bin/console messenger:consume import_incoming queue_vessels queue_ports queue_companies -vv
+
+
+Тестил работоспособность curlом
+code Bash
+curl -v -X POST http://localhost:8080/api/import \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": {
+        "vessels": [
+            {"imo": "9166778", "name": "Vessel One", "flag": "Panama"}
+        ],
+        "ports": [
+            {"code": "NLRTM", "name": "Rotterdam", "country": "Netherlands"}
+        ],
+        "companies": [
+            {"tax_id": "DE123456789", "name": "Shipping Co"}
+        ]
+    }
+}'
+
+
+

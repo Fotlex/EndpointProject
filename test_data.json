@@ -1,0 +1,13 @@
+{
+    "data": {
+        "vessels":[
+            { "imo": "1234567", "name": "Black Pearl", "flag": "Tortuga" }
+        ],
+        "ports":[
+            { "code": "USNYC", "name": "New York", "country": "USA" }
+        ],
+        "companies":[
+            { "tax_id": "TAX001", "name": "Maersk Line" }
+        ]
+    }
+}
