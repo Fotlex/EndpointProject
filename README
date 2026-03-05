@@ -1,4 +1,4 @@
-markdown
+text
 # Команды для развертывания и проверки импорта
 
 **Поднять контейнеры:**
@@ -30,3 +30,4 @@ curl -v -X POST http://localhost:8080/api/import \
         ]
     }
 }'
+text
